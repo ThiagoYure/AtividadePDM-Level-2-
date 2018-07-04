@@ -15,7 +15,11 @@
                 <action android:name="android.intent.action.SERVICE_REPO" />
             </intent-filter>
         </service>
-
+        <service android:name=".CleanServiceRepo">
+            <intent-filter>
+                <action android:name="android.intent.action.CLEAN_SERVICE_REPO" />
+            </intent-filter>
+        </service>
         <activity android:name=".Atividade2">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

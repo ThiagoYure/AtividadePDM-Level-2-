@@ -1,5 +1,6 @@
 package br.com.ifpb.atividade2;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -51,6 +52,12 @@ public class Atividade2 extends AppCompatActivity {
         startService(intent);
     }
 
+    public void cleanRepo(View view){
+        repos.clear();
+        adapter = new RepositorioAdapter(repos, (Atividade2) view.getContext());
+        resultado.setAdapter(adapter);
+    }
+
     public class ReceiverBeauty extends BroadcastReceiver {
 
         @Override
@@ -65,20 +72,20 @@ public class Atividade2 extends AppCompatActivity {
                     try {
                         JSONObject object = (JSONObject) array.get(i);
                         if(url_foto.isEmpty())
-                            url_foto = object.getJSONObject("owner").getString("url_foto");
+                            url_foto = object.getJSONObject("owner").getString("avatar_url");
                         repo.setAutor(object.getString("full_name").split("/")[0]);
                         repo.setNome(object.getString("full_name").split("/")[1]);
-                        repo.setDescricao(object.getString("descricao"));
+                        repo.setDescricao(object.getString("description"));
                         repo.setUrl_foto(url_foto);
                     } catch (JSONException e) {
-                        new RuntimeException(e.getMessage());
+                        e.getMessage();
                     }
                     repos.add(repo);
                 }
                 adapter = new RepositorioAdapter(repos, (Atividade2) context);
                 resultado.setAdapter(adapter);
             } catch (JSONException e) {
-                new RuntimeException(e.getMessage());
+                new Exception(e.getMessage());
             }
 
         }
